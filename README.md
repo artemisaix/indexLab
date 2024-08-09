@@ -1,12 +1,7 @@
-
-
 # :microscope:Laboratorio de Indexación en MySQL :computer:
-
   
-
 ## 1. Introducción
 
-  
 
 **:dart: Objetivo del Laboratorio:**
 
@@ -164,7 +159,7 @@ SHOW INDEX  FROM world.orders;
 ### Ejercicio 1: LIKE Y WILDCARD PATTERN
 
 
-**NOTA: MySQL puede elegir hacer full scan si la columna no tiene alta cardinalidad**
+:warning: **NOTA: MySQL puede elegir hacer full scan si la columna no tiene alta cardinalidad**
 
 - Vamos a verificar si nuestro ìndice sobre email esta funcionando:
 ```sql
@@ -185,9 +180,9 @@ WHERE email LIKE  'charlie%';
 ```
 
 # QUIZ :interrobang:
-
-¿Podemos saber por que en una consulta si lo utiliza y en la otra no?
 :alarm_clock:
+¿Podemos saber por que en una consulta si lo utiliza y en la otra no?
+
 ------
 ### Ejercicio 2: FUNCIONES SOBRE COLUMNAS INDEXADAS
 ```sql
@@ -269,8 +264,8 @@ CREATE INDEX idx_customer_str ON world.orders (customer_str);
 ```
 # QUIZ :interrobang:
 
-¿Podemos saber si se harà uso efectivo de los ìndices en la consulta?
-:alarm_clock:
+:alarm_clock: ¿Podemos saber si se harà uso efectivo de los ìndices en la consulta?
+
 ----------
 ```sql
 EXPLAIN SELECT lt.first_name, lt.last_name, 
@@ -492,8 +487,8 @@ Ahora, ya que vimos lo que sí debemos hacer, no esta de más conocer algunas pr
 
 # QUIZ :interrobang:
 
-¿A que nos referimos con el índice más la izquierda de un índice compuesto?
-:alarm_clock:
+:alarm_clock: ¿A que nos referimos con el índice más la izquierda de un índice compuesto?
+
 ----------
 
 ### Ejercicio 8: :x: No hacer uso del prefijo mas a la izquierda 
@@ -535,8 +530,8 @@ EXPLAIN SELECT * FROM world.users WHERE user_id BETWEEN 1002 AND 1004 AND city =
 ```
 # QUIZ :interrobang:
 
-¿Por qué el ìndice nos funciona en el segundo escenario pero no en primero?
-:alarm_clock:
+:alarm_clock: ¿Por qué el ìndice nos funciona en el segundo escenario pero no en primero?
+
 ----------
 
 # 6. CASOS DE ESTUDIO
@@ -632,8 +627,8 @@ Como vemos, el optimizador de consultas se decide a utilizar únicamente uno de 
 
 # QUIZ :interrobang:
 
-¿A qué caso nos enfrentamos?
-:alarm_clock:
+:alarm_clock: ¿A qué caso nos enfrentamos?
+
 ----------
 
 <label> <input type="radio" name="opcion" value="1. Índices insuficientes">1.  Índices insuficientes </label><br>
@@ -648,9 +643,9 @@ Una vez que sabemos a que nos enfrentamos, tenemos que realizar diversos anális
 
 # QUIZ :interrobang:
 
-¿Qué podríamos hacer para mejorar los índices en esta tabla? Elige la opción que te parezca más factible:
+:alarm_clock: ¿Qué podríamos hacer para mejorar los índices en esta tabla? Elige la opción que te parezca más factible:
 
-:alarm_clock:
+
 ----------
 **Opciones:**
 
