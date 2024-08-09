@@ -1,3 +1,4 @@
+
 # :microscope:Laboratorio de Indexación en MySQL :computer:
   
 ## 1. Introducción
@@ -258,8 +259,9 @@ Muy bien, ya mejoramos el uso del Join con ese ìndice.
 
 :warning: **NOTA:** Como buena práctica tambèn es bueno generar las FK necesarias en bases de datos Relacionales.
 
-#### Ahora vamos a generar un ìndice sobre `world.customer.customer_str`y usaremos esta columna IDEXADA en el JOIN.
+#### Ahora recordemos que creamos un ìndice sobre `world.customer.customer_str`y usaremos esta columna IDEXADA en el JOIN.
 ```sql
+-- INDICE QUE CREAMOS PREVIAMENTE
 CREATE INDEX idx_customer_str ON world.orders (customer_str);
 ```
 # QUIZ :interrobang:
@@ -343,28 +345,45 @@ En este ejercicio vamos a ver como un mismo índice nos sirve para cubrir difere
 -- Uso del Primer Campo del Índice
 EXPLAIN SELECT user_id, first_name,last_name,
 email,age, active
-FROM world.users WHERE user_id = 1006;
+FROM world.users
+WHERE user_id = 1006;
 
 -- Uso del Primer y Segundo Campo del Índice
 EXPLAIN SELECT user_id, first_name,last_name,
-email,age, active FROM world.users WHERE user_id = 1002 AND city = 'Los Angeles';
+email,age, active
+FROM world.users
+WHERE user_id = 1002
+AND city = 'Los Angeles';
 
 -- Uso de Todos los Campos del Índice
 EXPLAIN SELECT user_id, first_name,last_name,
-email,age, active FROM world.users WHERE user_id = 1001 AND city = 'New York' AND last_name = 'Smith';
+email,age, active
+FROM world.users
+WHERE user_id = 1001
+AND city = 'New York'
+AND last_name = 'Smith';
 
 -- Rango en el Segundo Campo del Índice
 EXPLAIN SELECT user_id, first_name,last_name,
-email,age, active FROM world.users WHERE user_id = 1004 AND city = 'Houston' AND last_name >= 'J' AND last_name < 'K';
+email,age, active
+FROM world.users
+WHERE user_id = 1004
+AND city = 'Houston'
+AND last_name >= 'J' AND last_name < 'K';
 
 -- Uso de BETWEEN
 EXPLAIN SELECT user_id, first_name,last_name,
-email,age, active FROM world.users WHERE user_id BETWEEN 1002 AND 1004 AND city = 'New York';
+email,age, active
+FROM world.users
+WHERE user_id BETWEEN 1002 AND 1004
+AND city = 'New York';
 
 -- Uso de BETWEEN, LIKE Y RANGOS
 EXPLAIN SELECT user_id, first_name,last_name,
-email,age, active FROM world.users WHERE user_id BETWEEN 1002 AND 1004
-AND city like  'New%' AND last_name >= 'J' AND last_name < 'K';
+email,age, active FROM world.users
+WHERE user_id BETWEEN 1002 AND 1004
+AND city like  'New%'
+AND last_name >= 'J' AND last_name < 'K';
 ```
 
 ### Ejercicio 7: :white_check_mark: BUEN USO de las propiedades de B-TREE  :deciduous_tree:
@@ -408,9 +427,9 @@ FROM world.users
 WHERE user_id = 1002 
 and last_name = 'Smith';
 ```
-
+----------------
 Hasta aquí vemos algunas posiblidades del indice compuesto y la estructura B-TREE... ahora veamos ejemplos más interesantes:
-
+### Ejercicio 8: :white_check_mark: OR en búsqueda de campos indexados
 ```sql
 -- Uso del Índice en una Parte y No en Otra: Usa el índice en 
 -- (user_id, city) para la primera parte 
@@ -431,24 +450,18 @@ OR
 ```
 ![Spicy memes - Imgflip](https://i.imgflip.com/58kv19.jpg)
 
-**Análisis de las consultas:**
 
 Entiendo que habrá algunas dudas, comprensible, aquí la explicación:
 
-1.  **`SELECT * FROM world.users WHERE user_id = 1001 OR city = 'New York';`**
+1.  **`SELECT * FROM world.users WHERE (user_id = 1001 AND city = 'New York') OR (user_id = 1002 AND last_name = 'Doe');`**
     
-    -   Esta consulta utiliza `OR` para combinar condiciones en dos columnas diferentes del índice (`user_id` y `city`).
-    -   MySQL tendría que escanear todo el índice para encontrar filas que cumplan cualquiera de las dos condiciones, lo que podría ser menos eficiente que un escaneo completo de la tabla.
-    -   Por lo tanto, MySQL decide no utilizar el índice en este caso.
-2.  **`SELECT * FROM world.users WHERE (user_id = 1001 AND city = 'New York') OR (user_id = 1002 AND last_name = 'Doe');`**
-    
-    -   Esta consulta también utiliza `OR`, pero cada condición dentro de los paréntesis se aplica a un prefijo de las columnas del índice en el orden correcto (`user_id` y `city` en la primera condición,  `user_id` y `last_name` en la segunda).
+    -   Esta consulta  utiliza `OR`, pero cada condición dentro de los paréntesis se aplica a un prefijo de las columnas del índice en el orden correcto (`user_id` y `city` en la primera condición,  `user_id` y `last_name` en la segunda).
     -   MySQL puede utilizar el índice para buscar eficientemente filas que cumplan cualquiera de las dos condiciones compuestas.
-3.  **`SELECT * FROM world.users WHERE user_id = 1001 OR (user_id = 1002 AND city = 'Los Angeles');`**
+2.  **`SELECT * FROM world.users WHERE user_id = 1001 OR (user_id = 1002 AND city = 'Los Angeles');`**
     
     -   Esta consulta es similar a la anterior. La primera condición (`user_id = 1001`) utiliza solo la primera columna del índice, y la segunda condición compuesta utiliza un prefijo de las columnas del índice en el orden correcto (`user_id` y `city`).
     -   MySQL puede utilizar el índice para optimizar ambas partes de la consulta.
-
+### Ejercicio 9: :white_check_mark: OR combinando columnas indexadas y columnas sin INDEX
 ```sql
 -- Condición con OR y AND en el Índice: Usa el índice 
 -- en (user_id) pero con una combinación OR y AND
@@ -458,7 +471,10 @@ WHERE user_id = 1001
 OR 
 (age = 30 AND user_id = 1002);
 ```
+
 ![Confused Nick Young... - Meme templates HD | Facebook](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFxrjLlgYqejPKaNsY95739Oqmm33dXWd_tg&s)
+
+----------------
 **Análisis de las consultas OR con columna no INDEXADA incluida:**
 
 MySQL sí utiliza el índice correctamente en esta consulta, a pesar de que la columna `age` no forma parte del índice y aparece primero dentro de los paréntesis. **¿Por qué?**
@@ -491,7 +507,7 @@ Ahora, ya que vimos lo que sí debemos hacer, no esta de más conocer algunas pr
 
 ----------
 
-### Ejercicio 8: :x: No hacer uso del prefijo mas a la izquierda 
+### Ejercicio 10: :x: No hacer uso del prefijo mas a la izquierda 
 
 ```sql
 -- Uso del Segundo Campo del Índice Solo
@@ -506,7 +522,7 @@ FROM world.users
 WHERE city = 'Houston' 
 AND last_name = 'Smith';
 ```
-### Ejercicio 9: :x: Mal uso del OR
+### Ejercicio 11: :x: Mal uso del OR
 ```sql
 -- Índice No Usado en Ambas Partes de la Condición: 
 -- No usa el índice (user_id, city, last_name) porque 
@@ -521,7 +537,7 @@ FROM world.users
 WHERE user_id = 1001 
 OR city = 'Los Angeles';
 ```
-### Ejercicio 9: :x: Mal uso de los RANGOS
+### Ejercicio 12: :x: Mal uso de los RANGOS
 ```sql
 -- Rangos mal definidos, no acotados
 EXPLAIN SELECT * FROM world.users WHERE user_id BETWEEN 1002 AND 1100 AND city = 'New York'; -- No funciona :(
