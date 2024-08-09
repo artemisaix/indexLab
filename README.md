@@ -23,25 +23,25 @@ Este laboratorio tiene como objetivo demostrar la importancia de la indexación 
 - Configuración inicial: creación de tablas y datos de prueba.
 - Ejercicios prácticos centrados en la creación y optimización de índices.
 
-  --------------------
+
+--------------------
 ## 4. CONVERSION DE TIPOS :abc:  :arrows_counterclockwise: :1234:
 
 Aquí tenemos un resumen de las reglas de conversión de tipos en MySQL:
 
 
-* **Números a Cadenas:** Un número se convierte a su representación en cadena.
-:1234:  ==> :abc:
-* **Cadenas a Números:** Una cadena se convierte al número correspondiente.
-:abc:   ==>  :1234:
-* **Cadenas a Fecha/Hora:** Una cadena válida se convierte a tipo de fecha u hora.
-:abc:  ==> :date:  :clock130:
-* **NULL:** Se convierte a 0 en contextos numéricos o a cadena vacía en contextos de cadena.
-:no_entry_sign: ==> :zero:
-* **Enteros a Flotantes:** Se convierten automáticamente en contextos de punto flotante.
-:1234: ==> :dollar:
+:1234:  ==> :abc:  **Números a Cadenas:** Un número se convierte a su representación en cadena.
+
+:abc:   ==>  :1234:   **Cadenas a Números:** Una cadena se convierte al número correspondiente.
+
+:abc:  ==> :date:  :clock130:  **Cadenas a Fecha/Hora:** Una cadena válida se convierte a tipo de fecha u hora.
+
+:no_entry_sign: ==> :zero:  **NULL:** Se convierte a 0 en contextos numéricos o a cadena vacía en contextos de cadena.
+
+:1234: ==> :dollar:  **Enteros a Flotantes:** Se convierten automáticamente en contextos de punto flotante.
+
 
 --------------------
-
   
 
 ## 2. Configuración Inicial :checkered_flag:
