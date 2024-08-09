@@ -1,5 +1,6 @@
 
-# Laboratorio de Indexación en MySQL 🗃️
+
+# :microscope:Laboratorio de Indexación en MySQL :computer:
 
   
 
@@ -7,11 +8,11 @@
 
   
 
-**Objetivo del Laboratorio:**
+**:dart: Objetivo del Laboratorio:**
 
 Este laboratorio tiene como objetivo demostrar la importancia de la indexación en MySQL, mostrando cómo los índices pueden mejorar el rendimiento de las consultas, y qué aspectos debemos tener en cuenta para diseñarlos eficientemente.
 
-**Requisitos Previos:**
+**:memo: Requisitos Previos:**
 
 * Tener instalado MySQL Server.
 * Tener un cliente de MySQL (como MySQL Workbench o la línea de comandos).
@@ -22,13 +23,28 @@ Este laboratorio tiene como objetivo demostrar la importancia de la indexación 
 - Configuración inicial: creación de tablas y datos de prueba.
 - Ejercicios prácticos centrados en la creación y optimización de índices.
 
+  --------------------
+## 4. CONVERSION DE TIPOS :abc:  :arrows_counterclockwise: :1234:
+
+Aquí tenemos un resumen de las reglas de conversión de tipos en MySQL:
+
+
+* **Números a Cadenas:** Un número se convierte a su representación en cadena.
+:1234:  ==> :abc:
+* **Cadenas a Números:** Una cadena se convierte al número correspondiente.
+:abc:   ==>  :1234:
+* **Cadenas a Fecha/Hora:** Una cadena válida se convierte a tipo de fecha u hora.
+:abc:  ==> :date:  :clock130:
+* **NULL:** Se convierte a 0 en contextos numéricos o a cadena vacía en contextos de cadena.
+:no_entry_sign: ==> :zero:
+* **Enteros a Flotantes:** Se convierten automáticamente en contextos de punto flotante.
+:1234: ==> :dollar:
+
+--------------------
+
   
 
----------
-
-  
-
-## 2. Configuración Inicial
+## 2. Configuración Inicial :checkered_flag:
 
   
 
@@ -134,29 +150,10 @@ SHOW INDEX  FROM world.customers;
 SHOW INDEX  FROM world.orders;
 ```
 
-Como vemos la columna customer_id en `world.orders` no esta indexada, ùnicamente se usa como FK hacia la tabla padre `wold.customers`
+:speech_balloon: Como vemos la columna `customer_id` en `world.orders` no esta indexada, ùnicamente se usa como FK hacia la tabla padre `wold.customers`
+
 
 --------------------
-## 4. CONVERSION DE TIPOS :abc: :1234:
-
-Aquí tenemos un resumen de las reglas de conversión de tipos en MySQL:
-
-
-* **Números a Cadenas:** Un número se convierte a su representación en cadena.
-:1234:  ==> :abc:
-* **Cadenas a Números:** Una cadena se convierte al número correspondiente.
-:abc:   ==>  :1234:
-* **Cadenas a Fecha/Hora:** Una cadena válida se convierte a tipo de fecha u hora.
-:abc:  ==> :date:  :clock130:
-* **NULL:** Se convierte a 0 en contextos numéricos o a cadena vacía en contextos de cadena.
-:no_entry_sign: ==> :zero:
-* **Enteros a Flotantes:** Se convierten automáticamente en contextos de punto flotante.
-:1234: ==> :dollar:
-
-  
-
---------------------
-
   
 
 # 5. HANDS ON! :open_hands: :computer:
