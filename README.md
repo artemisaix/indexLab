@@ -1,4 +1,5 @@
 
+
 # :microscope:Laboratorio de Indexación en MySQL :computer:
   
 ## 1. Introducción
@@ -261,7 +262,7 @@ Muy bien, ya mejoramos el uso del Join con ese ìndice.
 
 :warning: **NOTA:** Como buena práctica tambèn es bueno generar las FK necesarias en bases de datos Relacionales.
 
-#### Ahora recordemos que creamos un ìndice sobre `world.customer.customer_str`y usaremos esta columna IDEXADA en el JOIN.
+#### Ahora recordemos que creamos un ìndice sobre `world.customer.customer_str`y usaremos esta columna INDEXADA en el JOIN.
 ```sql
 -- INDICE QUE CREAMOS PREVIAMENTE
 CREATE INDEX idx_customer_str ON world.orders (customer_str);
@@ -555,7 +556,9 @@ EXPLAIN SELECT * FROM world.users WHERE user_id BETWEEN 1002 AND 1004 AND city =
 # 6. CASOS DE ESTUDIO
 A continuación tenemos varios casos de estudio para analizar y encontrar alguna manera de poder mejorar el performance de las consultas y el uso eficiente de los recursos en general: 
 
-## CASO 1: INDICES REDUNDANTES 
+## CASO 1
+
+Nos solicitan optimizar un flujo en el cual tenemos demasiado consumo de CPU para operaciones de actualización e inserción de datos, asi como un crecimiento excesivo del storage del servidor de la base de datos.
 
 #### - Primero necesitamos preparar nuestro escenario para el caso de estudio
 
@@ -668,9 +671,8 @@ Una vez que sabemos a que nos enfrentamos, tenemos que realizar diversos anális
 **Opciones:**
 
 1.  **Crear un nuevo índice que incluya todas las columnas de la tabla.**
-2.  **Eliminar ambos índices existentes y no crear ningún índice nuevo.**
-3.  **Mantener ambos índices tal como están y modificar las consultas en el aplicativo**
-4.  **Eliminar el índice `idx_user_city` ya que `idx_user_city_active` lo cubre completamente.**
+2.  **Mantener ambos índices tal como están y modificar las consultas en el aplicativo**
+3.  **Eliminar el índice `idx_user_city_active` ya que `idx_user_city` lo cubre completamente.**
 ![Mathematical Thoughts in the Hangover | Math in Movies](https://i.ytimg.com/vi/Mb1x_tRg2mc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAgAq2Ne4IA5MMNbCupAR-m-g1Yqw)
 
  **- Listo, hora de ejecutar nuestro plan de acción y realizar las pruebas necesarias para validar su efectividad**
