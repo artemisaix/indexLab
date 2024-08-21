@@ -558,7 +558,7 @@ A continuación tenemos varios casos de estudio para analizar y encontrar alguna
 
 ## CASO 1
 
-Nos solicitan optimizar un flujo en el cual tenemos demasiado consumo de CPU para operaciones de actualización e inserción de datos, asi como un crecimiento excesivo del storage del servidor de la base de datos.
+Nos solicitan optimizar un flujo en el cual tenemos demasiado consumo de CPU para operaciones de actualización e inserción de datos.
 
 #### - Primero necesitamos preparar nuestro escenario para el caso de estudio
 
@@ -694,7 +694,9 @@ AND active = true;
 
 :speech_balloon: _No siempre nuestra primera solución es la indicada, recuerda tener paciencia y recuerda que hasta los mejores han triunfado mediante prueba y error :relaxed:_
 
-## CASO 2: SOBREINDEXACIÓN 
+## CASO 2 
+
+Nos solicitan revisar un crecimiento excesivo en el storage del servidor de la base de datos, así como lentitud de algunos JOBS que insertan nuevos datos y actualizan datos de la siguiente tabla,
 
  **- Creamos la tabla para nuestro segundo caso de estudio:**
  ```sql
