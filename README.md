@@ -795,7 +795,7 @@ DROP INDEX idx_redundante3 ON world.clientes;
 DROP INDEX idx_redundante4 ON world.clientes;
 
 CREATE INDEX idx_user_email_active_lastname 
-ON world.clientes (user_id, email, active, last_name);
+ON world.clientes (user_id, email, last_name);
 ```
 
 Verificamos nuestros nuevos índices
