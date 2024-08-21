@@ -139,9 +139,11 @@ SELECT  count(1)  FROM world.customers;
 SELECT  count(1)  FROM world.orders;
 ```
  
-#### - Vamos a validar los ìndices actuales de ambas tablas
+#### - Vamos a crear los ìndices de ambas tablas
 
 ```sql
+CREATE INDEX idx_email ON world.customers (email);
+CREATE INDEX idx_username ON world.customers (username, city);
 SHOW INDEX  FROM world.customers;
 SHOW INDEX  FROM world.orders;
 ```
